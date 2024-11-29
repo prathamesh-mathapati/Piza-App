@@ -7,7 +7,7 @@ import { Carousel } from "react-responsive-carousel";
 const CarouselMain = () => {
     const [imageData,setImageData]=useState([])
   useEffect(() => {
-    ["pizza", "burger ", "cool drinks"].forEach((item) => {
+    ["pizza", "burger ", "milkshake"].forEach((item) => {
         console.log(item);
         
       fetch(
@@ -18,7 +18,7 @@ const CarouselMain = () => {
           return res.json();
         })
         .then((datajson) => {
-            setImageData([...imageData,datajson.urls])
+            setImageData([...imageData,datajson.urls.regular])
          
         }).catch(error=>{console.log(error,"error");
         
@@ -28,23 +28,25 @@ const CarouselMain = () => {
   }, []);
   
   return (
-    <div>
-      <Carousel axis="horizontal" autoPlay>
-        {imageData.map((imageProps) => {
-            console.log(imageProps);
-            
+
+      <Carousel axis="horizontal"  autoPlay
+      navButtonsAlwaysVisible
+      infiniteLoop
+      showStatus={false}
+      emulateTouch
+      showThumbs={false}>
+        {imageData.map((imageProps) => {            
           return (
-            <div>
+            <div style={{maxHeight:"36rem"}} className="brightness-50 object-center">
               <img
                 src={imageProps}
                 alt={imageProps}
               />
-              <p className="legend">Legend 1</p>
             </div>
           );
         })}
       </Carousel>
-    </div>
+
   );
 };
 
