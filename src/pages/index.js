@@ -1,6 +1,4 @@
-import Image from "next/image";
-import localFont from "next/font/local";
-import CarouselMain from "@/components/Home/home";
+import CarouselMain from "@/components/Home/HomeCarousel";
 import Head from "next/head";
 
 
