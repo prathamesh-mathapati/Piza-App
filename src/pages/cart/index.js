@@ -1,12 +1,14 @@
-import { Context } from '@/utlis/ContextReducer';
+import { Context, ContextReducer } from '@/utlis/ContextReducer';
 import React, { useContext } from 'react'
 
  const Cart = () => {
-  const {state}=useContext(Context)
+  const {state,dispatch}=useContext(Context)
   let totalPrice=0
   const handleCheckOut=()=>{
     
   }
+  console.log(state,"statestate");
+  
   
   return (
     <div style={{ minHeight: "95vh" }} className="flex items-center ">
@@ -103,7 +105,7 @@ import React, { useContext } from 'react'
                   </thead>
                   <tbody>
                     {state.map((data, index) => {
-                      totalPrice+=data.price
+                      totalPrice+=data?.price
                       return (
                         <tr
                           key={index}
@@ -113,10 +115,10 @@ import React, { useContext } from 'react'
                             {index + 1}
                           </td>
                           <td class="whitespace-nowrap px-6 py-4">
-                            {data.name}
+                            {data?.name}
                           </td>
                           <td class="whitespace-nowrap px-6 py-4">
-                            {data.priceSize}
+                            {data?.priceSize}
                           </td>
                           <td class="whitespace-nowrap  px-6 py-4">
                             <div className="  flex flex-row  ">
@@ -124,8 +126,8 @@ import React, { useContext } from 'react'
                                 onClick={() => {
                                   dispatch({
                                     type: "INCREMENT",
-                                    tempId: data.tempId,
-                                    unitPrice: data.price / data.qty,
+                                    tempId: data?.tempId,
+                                    unitPrice: data?.price / data?.qty,
                                   });
                                 }}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -141,17 +143,17 @@ import React, { useContext } from 'react'
                                   d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                                 />
                               </svg>
-                              {data.qty}
+                              {data?.qty}
                               <svg
                                 onClick={() => {
-                                  if (data.qty > 1) {
+                                  if (data?.qty > 1) {
                                     dispatch({
                                       type: "DECREMENT",
-                                      tempId: data.tempId,
-                                      unitPrice: data.price / data.qty,
+                                      tempId: data?.tempId,
+                                      unitPrice: data?.price / data?.qty,
                                     });
                                   }
-                                  if (data.qty <= 1) {
+                                  if (data?.qty <= 1) {
                                     dispatch({
                                       type: "REMOVE",
                                       index: index,
@@ -174,7 +176,7 @@ import React, { useContext } from 'react'
                             </div>
                           </td>
                           <td class="whitespace-nowrap px-6 py-4">
-                            ₹{data.price}/-
+                            ₹{data?.price}/-
                           </td>
                           {/* delete option */}
                           <td
