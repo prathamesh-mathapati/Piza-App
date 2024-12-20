@@ -47,6 +47,8 @@ const reducer = (state, action) => {
           }
         });
         return [...decarry];
+      case "DROP":
+        return [];
     default:
       break;
   }
