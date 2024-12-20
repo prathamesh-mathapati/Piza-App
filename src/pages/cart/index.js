@@ -3,12 +3,11 @@ import React, { useContext } from 'react'
 
  const Cart = () => {
   const {state,dispatch}=useContext(Context)
-  let totalPrice=0
   const handleCheckOut=()=>{
-    
+    dispatch({type:"DROP"})
   }
-  console.log(state,"statestate");
-  
+let totalPrice=0
+
   
   return (
     <div style={{ minHeight: "95vh" }} className="flex items-center ">

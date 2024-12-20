@@ -2,9 +2,10 @@ import Card from "@/components/Home/Card";
 import CarouselMain from "@/components/Home/HomeCarousel";
 import Head from "next/head";
 import cardData from "@/store/cardData.json";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [foodtypeFilter,setfoodtypeFilter]=useState(false)
   const catageres = Array.from(new Set(cardData.map((item) => item?.category)));
   const foodData = [...cardData];
 
@@ -15,6 +16,50 @@ export default function Home() {
       </Head>
       <CarouselMain />
       <div className="container mx-auto">
+      <div className="my-6 space-x-5">
+          <button
+            className={`border-black rounded-full dark:border-white border-2 py-1 px-3 ${
+              !foodtypeFilter && "bg-slate-300 dark:bg-slate-600"
+            } `}
+            onClick={() => setfoodtypeFilter(false)}
+          >
+            All
+          </button>
+          <button
+            className={`border-black rounded-full dark:border-white border-2 py-1 px-3 ${
+              foodtypeFilter === "Veg" && "bg-slate-300 dark:bg-slate-600"
+            } `}
+            onClick={() => {
+              setfoodtypeFilter("Veg");
+            }}
+          >
+            <span
+              className={
+                "lowercase font-thin bg-white border-green-500 border mr-2 px-0.1 text-green-500"
+              }
+            >
+              ●
+            </span>
+            Veg
+          </button>
+          <button
+            className={`border-black rounded-full dark:border-white border-2 py-1 px-3 m-auto ${
+              foodtypeFilter === "Non-Veg" && "bg-slate-300 dark:bg-slate-600"
+            } `}
+            onClick={() => {
+              setfoodtypeFilter("Non-Veg");
+            }}
+          >
+            <span
+              className={
+                "lowercase  bg-white border-red-500 border mr-2 px-0.1 text-red-500 "
+              }
+            >
+              ●
+            </span>
+            Non Veg
+          </button>
+        </div>
       {catageres?.map((catageres) => {
         return (
           <>
@@ -26,6 +71,7 @@ export default function Home() {
               <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2">
                 {foodData
                   ?.filter((foodData) => catageres === foodData.category)
+                  ?.filter((foodData)=>foodtypeFilter?foodData.foodType===foodtypeFilter:foodData)
                   ?.map((data) => {
                     return <Card key={data.id} foodData={data} />;
                   })}

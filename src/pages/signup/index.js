@@ -6,7 +6,6 @@ function Singup() {
   const [fromData,setFromdata]=useState({email:'',password:''})
   const handleSumit=(e)=>{
     e.preventDefault();
-    console.log(fromData,"fromData");
 
     setFromdata({name:"",email:'',password:'',address:""})
   }
