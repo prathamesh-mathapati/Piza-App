@@ -2,8 +2,10 @@ import db from "@/utlis/db";
 import PizzData from "../models/Pizzadata";
 
 export default async function  handler (req, res) {
-    if(req.methode==="POST"){
+
+    if(req.method==="POST"){
         await db.connect();
+        
         for(let i=0;i< req.body.length; i++){
             let pizza=new PizzData({
                 name:req.body[i].name,
