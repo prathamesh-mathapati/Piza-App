@@ -9,14 +9,19 @@ const connection = {}
         console.log("your allredy conncted");
         return
     }
-    if(mongoose.connections.length>0){
+    if(mongoose.connections.length>0){        
         if(mongoose.connect.length===1){
             console.log("Use previous connection");
             return
         }
         await mongoose.disconnect()
-    }
-   const db= await mongoose.connect(mongooDB)
+    }    
+   const db= await mongoose.connect(mongooDB,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    connectTimeoutMS: 30000, 
+    socketTimeoutMS: 30000, 
+   })
    console.log("new connection");
    
 }
