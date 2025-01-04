@@ -12,13 +12,13 @@ const Card = (props) => {
 
   
   const handleAddtoCard=()=>{
-const cardDataUpaded=state.find(item=>item.tempId===size+foodData.id)  
+const cardDataUpaded=state.find(item=>item.tempId===size+foodData._id)  
 if(cardDataUpaded){
   dispatch({type:"UPDATED",
     data:{
     price,
-    id:foodData.id,
-    tempId:size+foodData.id,
+    id:foodData._id,
+    tempId:size+foodData._id,
     name:foodData.name,
     img:foodData.img,
     qty,
@@ -28,8 +28,8 @@ if(cardDataUpaded){
   dispatch({type:"ADD",
     data:{
     price,
-    id:foodData.id,
-    tempId:size+foodData.id,
+    id:foodData._id,
+    tempId:size+foodData._id,
     name:foodData.name,
     img:foodData.img,
     qty,

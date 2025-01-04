@@ -15,13 +15,9 @@ const connection = {}
             return
         }
         await mongoose.disconnect()
-    }    
-   const db= await mongoose.connect(mongooDB,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    connectTimeoutMS: 30000, 
-    socketTimeoutMS: 30000, 
-   })
+    }
+    console.log("new connection","kjnkjnj",mongooDB);    
+   const db= await mongoose.connect(mongooDB)
    console.log("new connection");
    
 }
