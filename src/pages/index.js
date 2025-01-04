@@ -1,13 +1,15 @@
 import Card from "@/components/Home/Card";
 import CarouselMain from "@/components/Home/HomeCarousel";
 import Head from "next/head";
-import cardData from "@/store/cardData.json";
 import { useEffect, useState } from "react";
+import baseUrl from "@/utlis/baseUrl";
 
-export default function Home() {
+export default function Home({data}) {
+  console.log(data,"data");
+  
   const [foodtypeFilter,setfoodtypeFilter]=useState(false)
-  const catageres = Array.from(new Set(cardData.map((item) => item?.category)));
-  const foodData = [...cardData];
+  const catageres = Array.from(new Set(data.map((item) => item?.category)));
+  const foodData = [...data];
 
   return (
     <div className={`font-[family-name:var(--font-geist-sans)]`}>
@@ -85,3 +87,20 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getStaticProps () {
+  let data=null
+  try {
+    const PizzaData=await fetch(baseUrl+"/api/foodData",{method:"GET"}).then(respone=>respone.json()).catch(error=>console.log(error.message,"error"))
+    data =await JSON.parse(JSON.stringify(PizzaData.data))
+    
+  } catch (error) {
+    console.log(error.message,"error")
+  }  
+
+  return {
+    props:{
+      data:data
+    }
+  }
+} 

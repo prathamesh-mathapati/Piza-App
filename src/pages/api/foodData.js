@@ -19,5 +19,12 @@ export default async function  handler (req, res) {
         }
         res.status(200).json({ message: "all data is send" });
     }
+    
+    if(req.method==="GET"){
+        await db.connect();
+       const pizaalisatData=await PizzData.find()
+       res.status(200).json({message:"All data receive",data:pizaalisatData})
+
+    }
 
 }
