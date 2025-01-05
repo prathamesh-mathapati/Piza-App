@@ -16,7 +16,6 @@ const connection = {}
         }
         await mongoose.disconnect()
     }
-    console.log("new connection","kjnkjnj",mongooDB);    
    const db= await mongoose.connect(mongooDB)
    console.log("new connection");
    

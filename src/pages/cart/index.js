@@ -11,19 +11,19 @@ let totalPrice=0
   
   return (
     <div style={{ minHeight: "95vh" }} className="flex items-center ">
-    <div class="container mx-auto flex border-gradient p-3 pb-10 m-10  rounded-lg flex-col">
-      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-          <div class="overflow-hidden">
+    <div className="container mx-auto flex border-gradient p-3 pb-10 m-10  rounded-lg flex-col">
+      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <div className="overflow-hidden">
             {state.length > 0 ? (
               <>
-                <table class="min-w-full text-left text-lg font-light">
-                  <thead class="border-b font-medium dark:border-neutral-500">
+                <table className="min-w-full text-left text-lg font-light">
+                  <thead className="border-b font-medium dark:border-neutral-500">
                     <tr>
-                      <th scope="col" class="px-6 py-4 ">
+                      <th scope="col" className="px-6 py-4 ">
                         #
                       </th>
-                      <th scope="col" class="px-6 py-4 ">
+                      <th scope="col" className="px-6 py-4 ">
                         <div className="flex items-center">
                           Item name
                           <svg
@@ -42,26 +42,26 @@ let totalPrice=0
                           </svg>
                         </div>
                       </th>
-                      <th scope="col" class="px-6 py-4 ">
+                      <th scope="col" className="px-6 py-4 ">
                         <div className="flex items-center">
                           Size
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
-                            class="w-6 h-6 mx-1"
+                            className="w-6 h-6 mx-1"
                           >
                             <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                               d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
                             />
                           </svg>
                         </div>
                       </th>
-                      <th scope="col" class="px-6 py-4 ">
+                      <th scope="col" className="px-6 py-4 ">
                         <div className="flex items-center">
                           Quantity
                           <svg
@@ -80,7 +80,7 @@ let totalPrice=0
                           </svg>
                         </div>
                       </th>
-                      <th scope="col" class="px-6 py-4  ">
+                      <th scope="col" className="px-6 py-4  ">
                         <div className="flex items-center">
                           Price
                           <svg
@@ -99,7 +99,7 @@ let totalPrice=0
                           </svg>
                         </div>
                       </th>
-                      <th scope="col" class="px-6 py-4 "></th>
+                      <th scope="col" className="px-6 py-4 "></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -108,18 +108,18 @@ let totalPrice=0
                       return (
                         <tr
                           key={index}
-                          class="border-b dark:border-neutral-500"
+                          className="border-b dark:border-neutral-500"
                         >
-                          <td class="whitespace-nowrap px-6 py-4 font-medium">
+                          <td className="whitespace-nowrap px-6 py-4 font-medium">
                             {index + 1}
                           </td>
-                          <td class="whitespace-nowrap px-6 py-4">
+                          <td className="whitespace-nowrap px-6 py-4">
                             {data?.name}
                           </td>
-                          <td class="whitespace-nowrap px-6 py-4">
+                          <td className="whitespace-nowrap px-6 py-4">
                             {data?.priceSize}
                           </td>
-                          <td class="whitespace-nowrap  px-6 py-4">
+                          <td className="whitespace-nowrap  px-6 py-4">
                             <div className="  flex flex-row  ">
                               <svg
                                 onClick={() => {
@@ -174,7 +174,7 @@ let totalPrice=0
                               </svg>
                             </div>
                           </td>
-                          <td class="whitespace-nowrap px-6 py-4">
+                          <td className="whitespace-nowrap px-6 py-4">
                             ₹{data?.price}/-
                           </td>
                           {/* delete option */}
@@ -182,7 +182,7 @@ let totalPrice=0
                             onClick={() =>
                               dispatch({ type: "REMOVE", index: index })
                             }
-                            class="cursor-pointer whitespace-nowrap px-2 py-2 hover:text-red-500"
+                            className="cursor-pointer whitespace-nowrap px-2 py-2 hover:text-red-500"
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
