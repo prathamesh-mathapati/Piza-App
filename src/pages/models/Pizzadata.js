@@ -11,6 +11,6 @@ const dataSchema=new mongoose.Schema({
     timestamps:true
   })
 
-const PizzData=mongoose.model.PizzData||mongoose.model("PizzData",dataSchema)
+const PizzData=mongoose.models.PizzData||mongoose.model("PizzData",dataSchema)
 
 export default PizzData;

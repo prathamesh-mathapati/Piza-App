@@ -18,13 +18,15 @@ export default async function  handler (req, res) {
             await pizza.save();
         }
         res.status(200).json({ message: "all data is send" });
+        db.disconnect()
+
     }
     
     if(req.method==="GET"){
         await db.connect();
        const pizaalisatData=await PizzData.find()
        res.status(200).json({message:"All data receive",data:pizaalisatData})
-
+        db.disconnect()
     }
 
 }

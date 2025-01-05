@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import Image from "next/image";
 import { Context } from "@/utlis/ContextReducer";
+import Link from "next/link";
 
 const Card = (props) => {
   const {foodData}=props
@@ -42,6 +43,8 @@ if(cardDataUpaded){
   return (
     <div className="box">
       <div className="w-80 rounded-lg bg-white overflow-hidden dark:bg-black border-gradient">
+      <Link href={{pathname:'/Item/[item]'}} as={`/Item/${foodData._id}`}>
+
         <div className="relative w-full h-80">
           <Image
             layout="fill"
@@ -51,7 +54,7 @@ if(cardDataUpaded){
           />
         </div>
         <div className="p-4">
-          <div className="font-bold mb-2 text-xl uppercase">{foodData?.category}</div>
+          <div className="font-bold mb-2 text-xl uppercase">{foodData?.name}</div>
           <p className="short_description text-gray-700 dark:text-gray-400 text-base">
             {foodData?.description}
           </p>
@@ -74,8 +77,9 @@ if(cardDataUpaded){
             Add to cart
           </button> <p className="p-2 text-xl">₹{price}/-</p>
         </div>
-       
+        </Link>
       </div>
+
     </div>
   );
 };
