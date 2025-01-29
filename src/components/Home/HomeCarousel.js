@@ -6,7 +6,7 @@ const CarouselMain = () => {
   const [imageData, setImageData] = useState([
     "https://images.unsplash.com/photo-1624340209361-bfad6e30dbf4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2ODA4MjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM2NzI5MDJ8&ixlib=rb-4.0.3&q=80&w=1080",
     "https://images.unsplash.com/photo-1465799411029-5a317ff17837?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2ODA4MjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM2NzI5MDJ8&ixlib=rb-4.0.3&q=80&w=1080",
-    "https://images.unsplash.com/photo-1621458472871-d8b6a409aba1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2ODA4MjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM2NzI4Mzd8&ixlib=rb-4.0.3&q=80&w=1080",
+    "https://images.unsplash.com/photo-1714799263245-4fc7cc21911e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2ODA4MjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Mzc1MjU5MDh8&ixlib=rb-4.0.3&q=80&w=1080",
   ]);
 
   useEffect(() => {

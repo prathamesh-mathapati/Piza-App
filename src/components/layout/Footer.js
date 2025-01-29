@@ -18,7 +18,7 @@ export const Footer = () => {
     <p className="leading-5 text-xl mx-2">Pizza Wizza</p> 
 
   </Link> 
-    <p className="text-sm mx-2 border-gray-300"> | ©2024 Daitrix. All Rights Reserved.</p>
+    <p className="text-sm mx-2 border-gray-300"> | ©2025. All Rights Reserved.</p>
 </footer>
   )
 }

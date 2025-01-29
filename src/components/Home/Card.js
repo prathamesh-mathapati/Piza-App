@@ -59,6 +59,8 @@ if(cardDataUpaded){
             {foodData?.description}
           </p>
         </div>
+       
+        </Link>
         <div className="flex px-4 justify-between">
           <select  className=" h-100  p-1 text-black hover:font-bold font-semibold cursor-pointer dark:text-gray-300  border border-black dark:border-gray-400 rounded" onChange={e=> setQty(parseInt(e.target.value))}>
             {Array.from(Array(6), (e, i) => {
@@ -77,7 +79,6 @@ if(cardDataUpaded){
             Add to cart
           </button> <p className="p-2 text-xl">₹{price}/-</p>
         </div>
-        </Link>
       </div>
 
     </div>
