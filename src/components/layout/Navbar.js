@@ -80,7 +80,7 @@ export const Navbar = () => {
             </svg>
           </Link>
 
-          {localStorage.getItem("token") ? (
+          {!localStorage.getItem("token") ? (
             <>
               <Link
                 href={"/login"}

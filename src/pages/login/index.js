@@ -1,17 +1,34 @@
-'use client'
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const Login = () => {
-    const [fromData,setFromdata]=useState({email:'',password:''})
-    const handleSumit=(e)=>{
-      e.preventDefault();
-      setFromdata({email:'',password:''})
+  const [fromData, setFromdata] = useState({ email: "", password: "" });
+    const router=useRouter()
+  const handleSumit = async (e) => {
+    e.preventDefault();
+    const logIn = await fetch("/api/userLoing", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body:JSON.stringify( {
+        email: fromData.email,
+        password: fromData.password,
+      }),
+    });
+    const res = await logIn.json();
+    if (res.sucess) {
+      localStorage.setItem("token", res.authToken);
+      localStorage.setItem("userEmail", fromData.email);
+      router.push("/");
+    } else {
+      alert(res.error);
     }
-    const handleChanges =(e)=>{
-      setFromdata({...fromData,[e.target.name]:e.target.value})
-
-    }
+    setFromdata({ email: "", password: "" });
+  };
+  const handleChanges = (e) => {
+    setFromdata({ ...fromData, [e.target.name]: e.target.value });
+  };
   return (
     <div
       className="flex justify-center items-center"
@@ -35,9 +52,9 @@ const Login = () => {
               type="email"
               name="email"
               className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 text-gray-700 bg-white"
-                placeholder="Enter your uaername/email"
-                onChange={(e)=>handleChanges(e)}
-                value={fromData.email}
+              placeholder="Enter your uaername/email"
+              onChange={(e) => handleChanges(e)}
+              value={fromData.email}
             />
           </div>
 
@@ -53,15 +70,26 @@ const Login = () => {
               name="password"
               className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white"
               placeholder="****************"
-              onChange={(e)=>handleChanges(e)}
+              onChange={(e) => handleChanges(e)}
               value={fromData.password}
-
             />
           </div>
           <div className="mb-4 flex gap-6">
-          <button type="submit" className="border font-bold dark:border-gray-400 border-gray-900 rounded py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white">Login</button>
+            <button
+              type="submit"
+              className="border font-bold dark:border-gray-400 border-gray-900 rounded py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white"
+            >
+              Login
+            </button>
 
-          <Link href={'/signup'} style={{all:"unset"}}><button type="submit" className="border font-bold dark:border-gray-400 border-gray-900 rounded  py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white">New User ?</button></Link>
+            <Link href={"/signup"} style={{ all: "unset" }}>
+              <button
+                type="submit"
+                className="border font-bold dark:border-gray-400 border-gray-900 rounded  py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white"
+              >
+                New User ?
+              </button>
+            </Link>
           </div>
         </form>
       </div>
