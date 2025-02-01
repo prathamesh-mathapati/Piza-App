@@ -10,20 +10,24 @@ export default async function handler(req, res) {
     await db.connect();
 
     try {
-        const userDb=User.findOne({email})
+        const userDb=await User.findOne({email})
         if(!userDb){
             return res.status(400).json({error:"Enter valid email id"})
         }
         const EncryptEamilId= await bcrypt.compare(password,userDb.password)
+        console.log(EncryptEamilId);
         if(!EncryptEamilId){
             return res.status(400).json({error:"Enter valid email password"})
         }
+
         const data={
             user:{
                 id:userDb["_id"]
             }
         }
         const auth=jwt.sign(data,secrekey)
+        console.log(auth);
+        
          res.status(200).json({sucess:true,auth})
     } catch (error) {
          res.send("Sever Error")
