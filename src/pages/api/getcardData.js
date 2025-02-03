@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     await db.connect();
     try {
-      const data =await Order.findOne({ email });
+      const data =await Order.findOne({ email });      
       res.json({ data, sucess: true });
     } catch (error) {
         

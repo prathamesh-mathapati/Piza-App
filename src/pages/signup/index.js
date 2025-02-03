@@ -21,7 +21,7 @@ function Singup() {
     const res =await signupApi.json();
     
     if (res.sucess) {
-      localStorage.setItem("token", res.authToken);
+      localStorage.setItem("token", res.auth);
       localStorage.setItem("userEmail", fromData.email);
       router.push('/')
 
