@@ -13,13 +13,14 @@ export default async function handler(req, res) {
     await db.connect();
     try {
 
-      const { name, email,  address } = req.body;
+      const { name, email,  address,admin } = req.body;
 
        User.create({
         name: name,
         email: email,
         password: securePass,
         address: address,
+        admin:admin
       }).then((user) => {        
         const data = {
           user: { data: user["_id"] },
