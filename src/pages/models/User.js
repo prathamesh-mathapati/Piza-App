@@ -10,6 +10,7 @@ const dataSchema = new mongoose.Schema(
    },
     password: { type: String, required: true },
     address: { type: String, required: true },
+    admin:{type:Boolean,require:true}
   },
   {
     timestamps: true,

@@ -16,6 +16,7 @@ function Singup() {
         email: fromData.email,
         password: fromData.password,
         address: fromData.address,
+        admin:false
       }),
     });
     const res =await signupApi.json();
@@ -28,7 +29,7 @@ function Singup() {
     }else{
       alert(res.error)
     }
-    // setFromdata({ name: "", email: "", password: "", address: "" });
+    setFromdata({ name: "", email: "", password: "", address: "" });
   };
   const handleChanges = (e) => {
     setFromdata({ ...fromData, [e.target.name]: e.target.value });
