@@ -20,10 +20,12 @@ function Singup() {
       }),
     });
     const res =await signupApi.json();
+    console.log(res);
     
     if (res.sucess) {
-      localStorage.setItem("token", res.auth);
+      localStorage.setItem("token", res.authToken);
       localStorage.setItem("userEmail", fromData.email);
+      localStorage.setItem("isAdmin", res.admin);
       router.push('/')
 
     }else{

@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         };
         const authToken = jwt.sign(data, secrekey);
         sucess = true;
-        res.json({ sucess, authToken });
+        res.json({ sucess, authToken, admin });
       }).catch(error=>res.json({error:error.message}))
 
       

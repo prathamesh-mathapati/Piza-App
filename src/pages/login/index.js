@@ -18,8 +18,9 @@ const Login = () => {
     });
     const res = await logIn.json();
     if (res.sucess) {
-      localStorage.setItem("token", res.auth);
+      localStorage.setItem("token", res.authToken);
       localStorage.setItem("userEmail", fromData.email);
+      localStorage.setItem("isAdmin", res.admin);
       router.push("/");
     } else {
       alert(res.error);
