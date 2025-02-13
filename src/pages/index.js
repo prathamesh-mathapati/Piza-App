@@ -1,8 +1,8 @@
 import Card from "@/components/Home/Card";
 import CarouselMain from "@/components/Home/HomeCarousel";
+import { baseUrl } from "@/utlis/baseUrl";
 import Head from "next/head";
 import {useState } from "react";
-import baseUrl from "@/utlis/baseUrl";
 
 export default function Home({ data }) {
   // Make sure `data` is always an array
@@ -14,7 +14,7 @@ export default function Home({ data }) {
   }
 
   
-  const catageres = [...new Set(safeData.map(item => item?.category))];
+  const catageres = Array.from(new Set(safeData.map((item) => item?.category)));
   const foodData = [...safeData];
 
   return (
@@ -65,19 +65,19 @@ export default function Home({ data }) {
           </button>
         </div>
 
-        {catageres?.map((category, indexC) => {
+        {catageres?.map((catageres) => {
           return (
             <>
-              <div key={indexC} className="text-4xl font-bold uppercase mt-10 ">
-                {category}
+              <div key={catageres} className="text-4xl font-bold uppercase mt-10 ">
+                {catageres}
               </div>
               <hr />
               <div className="flex flex-col justify-center items-center">
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 ">
                   {foodData
-                    ?.filter((foodData) => category === foodData.category)
+                    ?.filter((foodData) => catageres === foodData.category)
                     ?.filter((foodData) =>
-                      foodtypeFilter ? foodData.foodType === foodtypeFilter : true
+                      foodtypeFilter ? foodData.foodType === foodtypeFilter : foodData
                     )
                     ?.map((data) => {
                       return <Card key={data.id} foodData={data} />;
@@ -94,6 +94,7 @@ export default function Home({ data }) {
 
 export async function getStaticProps(context) {
   let data = null;
+  
   try {
     const res = await fetch(baseUrl + "/api/foodData", { method: "GET" });
     const PizzaData = await res.json();
@@ -101,7 +102,6 @@ export async function getStaticProps(context) {
   } catch (error) {
     console.log(error.message, "error");
   }
-
   return {
     props: {
       data,
