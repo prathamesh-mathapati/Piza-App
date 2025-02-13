@@ -1,20 +1,20 @@
 import Card from "@/components/Home/Card";
 import CarouselMain from "@/components/Home/HomeCarousel";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import baseUrl from "@/utlis/baseUrl";
 
 export default function Home({ data }) {
   // Make sure `data` is always an array
   const safeData = data || []; 
-
+  const [foodtypeFilter, setfoodtypeFilter] = useState(false);
   // If data is empty or null, you can render a loading message
   if (!safeData.length) {
     return <div>Loading...</div>;
   }
 
-  const [foodtypeFilter, setfoodtypeFilter] = useState(false);
-  const catageres = Array.from(new Set(safeData.map((item) => item?.category)));
+  
+  const catageres = [...new Set(safeData.map(item => item?.category))];
   const foodData = [...safeData];
 
   return (
@@ -65,19 +65,19 @@ export default function Home({ data }) {
           </button>
         </div>
 
-        {catageres?.map((catageres) => {
+        {catageres?.map((category, indexC) => {
           return (
             <>
-              <div key={catageres} className="text-4xl font-bold uppercase mt-10 ">
-                {catageres}
+              <div key={indexC} className="text-4xl font-bold uppercase mt-10 ">
+                {category}
               </div>
               <hr />
               <div className="flex flex-col justify-center items-center">
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 ">
                   {foodData
-                    ?.filter((foodData) => catageres === foodData.category)
+                    ?.filter((foodData) => category === foodData.category)
                     ?.filter((foodData) =>
-                      foodtypeFilter ? foodData.foodType === foodtypeFilter : foodData
+                      foodtypeFilter ? foodData.foodType === foodtypeFilter : true
                     )
                     ?.map((data) => {
                       return <Card key={data.id} foodData={data} />;
