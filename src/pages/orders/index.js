@@ -29,7 +29,7 @@ const Orders = () => {
         <div className=" container mx-auto mt-10 h-auto">
           {orderData?.map((orders, index) => {
             return (
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3" key={index+"222"}>
                 {orders?.map((item) => {
                   return (
                     <>
