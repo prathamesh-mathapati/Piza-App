@@ -1,16 +1,19 @@
 import mongoose from "mongoose";
 
-const dataSchema=new mongoose.Schema({
-    name:{type:String,require},
-    category:{type:String,require},
-      foodType: {type:String,require},
-      price:{type:Object,require},
-      description: {type:String,require},
-      img: {type:String,require}
-},{
-    timestamps:true
-  })
+const dataSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    category: { type: String, required: true },
+    foodType: { type: String, required: true },
+    price: { type: Object, required: true },
+    description: { type: String, required: true },
+    img: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const PizzData=mongoose.models.PizzData||mongoose.model("PizzData",dataSchema)
+const PizzData = mongoose.models.PizzData || mongoose.model("PizzData", dataSchema);
 
 export default PizzData;
