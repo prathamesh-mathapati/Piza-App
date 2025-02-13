@@ -1,11 +1,11 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Custom404 from "../404";
 
 const sidesPriceOption = { single: "", double: "" };
 const pizzaPriceOption = { regular: "", medium: "", large: "" };
 const Admin = () => {
+  const [mount,setMount]=useState(false)
   const [fromData, setFromdata] = useState({
     name: "",
     category: "",
@@ -14,38 +14,41 @@ const Admin = () => {
     description: "",
     img: "",
   });
-  const router = useRouter();
   const handleSumit = async (e) => {
     e.preventDefault();
-    console.log(fromData, "fromData");
-
-    const logIn = await fetch("/api/adminData", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: fromData.name,
-        category: fromData.category,
-        foodType: fromData.foodType,
-        price: fromData.price,
-        description: fromData.description,
-        img: fromData.img,
-      }),
-    });
-    const res = await logIn.json();
-    if (res.sucess) {
-     alert("Add data on admin")
-     setFromdata({
-       name: "",
-       category: "",
-       foodType: "",
-       price: "",
-       description: "",
-       img: "",
-     });
-
-    } else {
-      alert(res.error);
+    if(fromData.name && fromData.img&& fromData.category){
+      const logIn = await fetch("/api/adminData", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fromData.name,
+          category: fromData.category,
+          foodType: fromData.foodType,
+          price: fromData.price,
+          description: fromData.description,
+          img: fromData.img,
+        }),
+      });
+      const res = await logIn.json();
+      if (res.message) {
+       alert("Add data on admin")
+       setFromdata({
+         name: "",
+         category: "",
+         foodType: "",
+         price: "",
+         description: "",
+         img: "",
+       });
+  
+      } else {
+        alert(res.error);
+      }
+    }else{
+      alert("Filed all data ");
     }
+
+   
   
   };
   const handleChanges = (e) => {
@@ -70,8 +73,16 @@ const Admin = () => {
     }
   };
 
+  useEffect(()=>{
+    if(JSON.parse(localStorage.getItem("isAdmin"))===true){
+      setMount(true)
+    }
+    
+  })
   return (
-    <div
+    <>
+    {
+      mount ? <div
       className="flex justify-center items-center"
       style={{
         height: "83vh",
@@ -165,6 +176,7 @@ const Admin = () => {
                         name={key}
                         placeholder={`Price of ${key}`}
                         value={fromData?.price[key]}
+                        required
                         onChange={(e) => {
                           setFromdata({
                             ...fromData,
@@ -212,6 +224,7 @@ const Admin = () => {
               placeholder="img"
               onChange={(e) => handleChanges(e)}
               value={fromData.img}
+              required
             />
           </div>
           <div className="mb-4 flex gap-6">
@@ -224,7 +237,10 @@ const Admin = () => {
           </div>
         </form>
       </div>
-    </div>
+    </div>:<Custom404/>
+    }
+    </>
+    
   );
 };
 

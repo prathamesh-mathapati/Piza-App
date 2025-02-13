@@ -26,9 +26,8 @@ export default async function handler(req, res) {
             }
         }
         const auth=jwt.sign(data,secrekey)
-        console.log(auth);
         
-         res.status(200).json({sucess:true,auth})
+         res.status(200).json({sucess:true,auth,admin:userDb.admin})
     } catch (error) {
          res.send("Sever Error")
     }
