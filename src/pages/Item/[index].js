@@ -1,13 +1,12 @@
-import baseUrl from '@/utlis/baseUrl';
+import { baseUrl } from "@/utlis/baseUrl";
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 const Item = ({ data }) => {
     
-
     return (
-        <div className="min-h-screen px-10">
+        <div className="px-10" style={{height:"80vh"}}>
             <Link href={"/"}>
                 <div className="container max-w-md  flex my-6 cursor-pointer hover:scale-125  justify-center items-center mx-auto ">
                     <svg
@@ -27,7 +26,7 @@ const Item = ({ data }) => {
                 </div>
             </Link>
 
-            <div className="container border-gradient max-w-md p-6 md:p-8 mb-16 mx-auto  flex space-y-4 flex-col items-center justify-center">
+            <div className="container border-gradient max-w-md p-6 md:p-8  mx-auto  flex space-y-4 flex-col items-center justify-center">
                 <div className="relative w-full h-96 rounded-lg lg:w-96">
                     <Image
                         src={data?.img}
@@ -51,7 +50,7 @@ const Item = ({ data }) => {
 }
 
 export async function getServerSideProps(context) {
-    let { index } = context.query;
+    let { query } = context;
     
     let data=null
     try {
@@ -59,11 +58,12 @@ export async function getServerSideProps(context) {
             method: "POST", headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({id:index})
+            body: JSON.stringify({id:query.index})
 
         });
         const PizzaData = await res.json();
         data = PizzaData.data || null;
+        
     } catch (error) {
         console.log(error.message, "error");
     }
@@ -73,6 +73,8 @@ export async function getServerSideProps(context) {
             data,
         },
     };
+
+    
 }
 
 export default Item

@@ -100,7 +100,6 @@ export async function getStaticProps(context) {
     const PizzaData = await res.json();
     data = PizzaData.data || null;
   } catch (error) {
-    console.log(error.message, "error");
   }
   return {
     props: {

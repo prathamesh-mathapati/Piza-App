@@ -1,5 +1,5 @@
 import db from "@/utlis/db";
-import User from "../models/User";
+import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 const secrekey = "sxadsadsadas";
