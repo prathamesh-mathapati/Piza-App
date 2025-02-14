@@ -1,5 +1,5 @@
 import db from "@/utlis/db";
-import PizzData from "../models/Pizzadata";
+import PizzData from "@/models/Pizzadata";
 
 export default async function  handler (req, res) {
 

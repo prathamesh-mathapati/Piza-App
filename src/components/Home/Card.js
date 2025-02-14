@@ -38,7 +38,7 @@ if(cardDataUpaded){
   }})
 }
   
-  }
+  }  
 
   return (
     <div className="box">

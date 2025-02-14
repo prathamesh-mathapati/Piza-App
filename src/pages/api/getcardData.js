@@ -1,5 +1,6 @@
 import db from "@/utlis/db";
-import Order from "../models/OrderCard";
+import Order from "@/models/OrderCard";
+
 
 export default async function handler(req, res) {
   const { email } = req.body;

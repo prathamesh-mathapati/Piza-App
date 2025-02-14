@@ -1,7 +1,7 @@
 // import bcryp
 import db from "@/utlis/db";
 import bcrypt from "bcryptjs";
-import User from "../models/User";
+import User from "@/models/User";
 import jwt from "jsonwebtoken";
 const secrekey = "sxadsadsadas";
 export default async function handler(req, res) {

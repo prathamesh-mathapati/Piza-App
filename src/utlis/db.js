@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const mongooDB=process.env.DB_URL

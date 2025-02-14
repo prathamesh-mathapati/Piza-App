@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const OrderCard = new mongoose.Schema(
@@ -15,4 +16,3 @@ OrderCard.index({ email: 1 });
 const Order = mongoose.models.Order || mongoose.model("Order", OrderCard);
 
 export default Order;
-
