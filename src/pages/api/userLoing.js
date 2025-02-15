@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const{email,password}=req.body;
     await db.connect();
-    res.status(200).json({sucess:true,auth,admin:req.body})
+
     try {
         const userDb=await User.findOne({email})
         if(!userDb){
