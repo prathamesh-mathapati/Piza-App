@@ -6,17 +6,20 @@ const mongooDB=process.env.DB_URL
 const connection = {}
 
  async function  connect() {
+    
     if(connection.isConnect){
         console.log("your allredy conncted");
         return
     }
-    if(mongoose.connections.length>0){        
+    if(mongoose.connections.length>0){      
+  
         if(mongoose.connect.length===1){
             console.log("Use previous connection");
             return
         }
         await mongoose.disconnect()
     }
+
    const db= await mongoose.connect(mongooDB)
    console.log("new connection");
    

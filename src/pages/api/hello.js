@@ -2,7 +2,8 @@
 
 import db from "@/utlis/db";
 
-export default function handler(req, res) {
-  db.connect()
+export default async function  handler(req, res) {
+await  db.connect()
   res.status(200).json({ name: "John Doe" });
+  await db.disconnect()
 }
