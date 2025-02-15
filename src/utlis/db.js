@@ -41,50 +41,62 @@
 
 // export default db;
 
+
 import mongoose from "mongoose";
 
 const mongooDB = process.env.DB_URL;
 
-const connection = {};
+const connection = {
+  isConnect: false, // Ensure this is initialized properly
+};
 
-// MongoDB connection handler
 async function connect() {
   if (connection.isConnect) {
-    console.log("Already connected to the database");
+    console.log("You're already connected to the database.");
     return;
   }
 
-  if (mongoose.connections.length > 0) {
-    if (mongoose.connections[0].readyState === 1) {
-      console.log("Using previous connection");
-      connection.isConnect = true;
-      return;
+  try {
+    if (mongoose.connections.length > 0) {
+      // Check if the existing connection is valid
+      if (mongoose.connection.readyState === 1) {
+        console.log("Using the previous connection.");
+        connection.isConnect = true;
+        return;
+      }
+
+      // If there are other connections, disconnect
+      await mongoose.disconnect();
     }
-    await mongoose.disconnect();
+
+    // Make a new connection
+    await mongoose.connect(mongooDB);
+    connection.isConnect = true;
+    console.log("New database connection established.");
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
+  }
+}
+
+async function disconnect() {
+  if (!connection.isConnect) {
+    console.log("No active database connection to disconnect.");
+    return;
   }
 
   try {
-    await mongoose.connect(mongooDB);
-    console.log("New MongoDB connection established");
-    connection.isConnect = true;
+    if (process.env.NODE_ENV === "production") {
+      await mongoose.disconnect();
+      connection.isConnect = false;
+      console.log("Database disconnected successfully.");
+    } else {
+      console.log("In non-production mode, not disconnecting.");
+    }
   } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-    throw new Error("Database connection failed");
+    console.error("Error disconnecting from the database:", error);
   }
 }
 
-// Disconnect logic
-async function disconnect() {
-  if (connection.isConnect) {
-    try {
-      await mongoose.disconnect();
-      console.log("MongoDB disconnected");
-      connection.isConnect = false;
-    } catch (error) {
-      console.error("Error disconnecting from MongoDB:", error);
-    }
-  }
-}
-const db={connect,disconnect}
+const db = { connect, disconnect };
 
 export default db;
