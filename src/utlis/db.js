@@ -67,6 +67,7 @@ async function connect() {
 
       // If there are other connections, disconnect
       await mongoose.disconnect();
+      console.log("Disconnected from previous connection.");
     }
 
     // Make a new connection
@@ -75,6 +76,7 @@ async function connect() {
     console.log("New database connection established.");
   } catch (error) {
     console.error("Error connecting to the database:", error);
+    connection.isConnect = false;  // Ensure flag is set correctly on error
   }
 }
 
