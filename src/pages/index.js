@@ -2,7 +2,7 @@ import Card from "@/components/Home/Card";
 import CarouselMain from "@/components/Home/HomeCarousel";
 import { baseUrl } from "@/utlis/baseUrl";
 import Head from "next/head";
-import {useState } from "react";
+import {useEffect, useState } from "react";
 
 export default function Home({ data }) {
   const [foodtypeFilter, setfoodtypeFilter] = useState(false);
