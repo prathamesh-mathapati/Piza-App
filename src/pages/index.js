@@ -92,7 +92,7 @@ export default function Home({ data }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   let data = null;
 
   try {
