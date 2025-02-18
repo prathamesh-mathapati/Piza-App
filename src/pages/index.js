@@ -98,7 +98,7 @@ export default function Home({ data }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   let data = null;
 
   try {
@@ -106,12 +106,13 @@ export async function getServerSideProps(context) {
     const PizzaData = await res.json();
     data = PizzaData.data || null;
   } catch (error) {
-    console.error("Error fetching data:", error); // Add logging here
+    console.error("Error fetching data:", error);
   }
 
   return {
     props: {
       data,
     },
+    revalidate: 10, // Rebuild the page every 10 seconds in production
   };
 }
