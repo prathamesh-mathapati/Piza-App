@@ -98,21 +98,30 @@ export default function Home({ data }) {
   );
 }
 
+
 export async function getStaticProps(context) {
   let data = null;
 
   try {
+    console.log('Fetching API in production...');
     const res = await fetch(baseUrl + "/api/foodData", { method: "GET" });
+    
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
     const PizzaData = await res.json();
+    console.log("API Data:", PizzaData);
     data = PizzaData.data || null;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching data:", error); // Check the error
   }
 
   return {
     props: {
       data,
     },
-    revalidate: 10, // Rebuild the page every 10 seconds in production
+    revalidate: 10, // Optional: revalidate in production
   };
 }
+
