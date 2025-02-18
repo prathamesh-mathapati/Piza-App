@@ -5,15 +5,21 @@ import Head from "next/head";
 import {useState } from "react";
 
 export default function Home({ data }) {
-  // Make sure `data` is always an array
-  const safeData = data || []; 
   const [foodtypeFilter, setfoodtypeFilter] = useState(false);
-  // If data is empty or null, you can render a loading message
-  if (!safeData.length) {
+  const [loading, setLoading] = useState(true);
+
+  // Simulate a loading state
+  useEffect(() => {
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
+
+  if (loading) {
     return <div>Loading...</div>;
   }
 
-  
+  const safeData = data || [];
   const catageres = Array.from(new Set(safeData.map((item) => item?.category)));
   const foodData = [...safeData];
 
