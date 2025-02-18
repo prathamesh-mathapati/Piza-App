@@ -94,13 +94,15 @@ export default function Home({ data }) {
 
 export async function getStaticProps(context) {
   let data = null;
-  
+
   try {
     const res = await fetch(baseUrl + "/api/foodData", { method: "GET" });
     const PizzaData = await res.json();
     data = PizzaData.data || null;
   } catch (error) {
+    console.error("Error fetching data:", error); // Add logging here
   }
+
   return {
     props: {
       data,
