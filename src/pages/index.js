@@ -14,6 +14,7 @@ export default function Home({ data }) {
       setLoading(false);
     }
   }, [data]);
+console.log(data,"data");
 
   if (loading) {
     return <div>Loading...</div>;
@@ -111,7 +112,6 @@ export async function getStaticProps(context) {
     }
 
     const PizzaData = await res.json();
-    console.log("API Data:", PizzaData);
     data = PizzaData.data || null;
   } catch (error) {
     console.error("Error fetching data:", error); // Check the error
