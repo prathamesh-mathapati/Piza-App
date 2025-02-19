@@ -42,26 +42,19 @@ if(cardDataUpaded){
 
   return (
     <div className="box">
-      <div className="w-80 rounded-lg bg-white overflow-hidden dark:bg-black border-gradient">
+      <div className="w-80 rounded-3xl bg-white overflow-hidden dark:bg-black  h-80 flex justify-end flex-col" style={{backgroundRepeat: "no-repeat", backgroundSize: "cover",backgroundImage:`url(${foodData?.img})`}}>
+      <div style={{background: "linear-gradient(0deg, #000000 -4.12%, rgba(0, 0, 0, 0.81) 45.45%, rgba(0, 0, 0, 0) 97.13%)"}}>
       <Link href={{pathname:'/Item/[item]'}} as={`/Item/${foodData._id}`}>
-
-        <div className="relative w-full h-80">
-          <Image
-            layout="fill"
-            objectFit="cover"
-            alt="Farmhouse pizza"
-            src={foodData.img}
-          />
-        </div>
-        <div className="p-4">
-          <div className="font-bold mb-2 text-xl uppercase">{foodData?.name}</div>
-          <p className="short_description text-gray-700 dark:text-gray-400 text-base">
+        
+        <div className="px-4">
+          <div className="font-bold mb-2 text-xl uppercase text-white pt-1">{foodData?.name}</div>
+          <p className="short_description text-gray-700 text-white ">
             {foodData?.description}
           </p>
         </div>
        
         </Link>
-        <div className="flex px-4 justify-between">
+        <div className="flex p-4 justify-between pb-2" >
           <select  className=" h-100  p-1 text-black hover:font-bold font-semibold cursor-pointer dark:text-gray-300  border border-black dark:border-gray-400 rounded" onChange={e=> setQty(parseInt(e.target.value))}>
             {Array.from(Array(6), (e, i) => {
               return <option key={i + 1}>{1 + i}</option>;
@@ -74,11 +67,14 @@ if(cardDataUpaded){
             })}
           </select>
         </div>
-        <div className="flex p-4 font-bold justify-between">
-          <button className="border dark:border-gray-400 border-gray-900 rounded p-2 hover:bg-gradient-to-r from-indigo-700 via-violet-700 to-orange-700 hover:text-gray-100" onClick={handleAddtoCard}>
+        <div className="flex px-4 pb-4 font-bold justify-between text-white align-middle" >
+          <button className="border dark:border-gray-400 border-white rounded mt-[1px] mb-[10px] px-2 hover:bg-gradient-to-r from-indigo-700 via-violet-700 to-orange-700 hover:text-gray-100 text-sm" onClick={handleAddtoCard}>
             Add to cart
-          </button> <p className="p-2 text-xl">₹{price}/-</p>
+          </button>
+          
+           <p className="p-2 ext-sm">₹{price}/-</p>
         </div>
+      </div>
       </div>
 
     </div>
