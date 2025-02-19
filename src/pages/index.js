@@ -100,28 +100,22 @@ console.log(data,"data");
 }
 
 
-export async function getStaticProps(context) {
-  let data = null;
-
+export async function getStaticProps() {
+  let data;
   try {
-    console.log('Fetching API in production...');
-    const res = await fetch(baseUrl + "/api/foodData", { method: "GET" });
-    
-    if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${res.status}`);
-    }
+    const pizzaData = await fetch(baseUrl + "api/foodData", { method: "GET" })
+      .then((response) => response.json())
+      .catch((error) => error.message);
 
-    const PizzaData = await res.json();
-    data = PizzaData.data || null;
+    data = await JSON.parse(JSON.stringify(pizzaData)); // step required during deployment in staticProps
   } catch (error) {
-    console.error("Error fetching data:", error); // Check the error
+    console.log(error.message);
   }
 
   return {
     props: {
-      data,
+      data: data.data || null,
     },
-    revalidate: 10, // Optional: revalidate in production
+    revalidate: 5,
   };
 }
-
