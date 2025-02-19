@@ -23,15 +23,15 @@ export default function Home({ data }) {
 
   const safeData = data || [];
   const catageres = Array.from(new Set(safeData.map((item) => item?.category)));
-  const foodData = [...safeData];
+  const foodData = [...safeData].reverse();
 
   return (
-    <div className={`font-[family-name:var(--font-geist-sans)]`}>
+    <div className={`font-[family-name:var(--font-geist-sans)] bg-no-repeat`} >
       <Head>
         <title>PizzaWizza</title>
       </Head>
       <CarouselMain />
-      <div className="container mx-auto">
+      <div className="container mx-auto" >
         <div className="my-6 space-x-5">
           <button
             className={`border-black rounded-full dark:border-white border-2 py-1 px-3 ${
@@ -81,7 +81,7 @@ export default function Home({ data }) {
               </div>
               <hr />
               <div className="flex flex-col justify-center items-center">
-                <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 ">
+                <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 ">
                   {foodData
                     ?.filter((foodData) => catageres === foodData.category)
                     ?.filter((foodData) =>
