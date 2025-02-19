@@ -1,42 +1,47 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 function Singup() {
-  const [fromData, setFromdata] = useState({ email: "", password: "" });
-  const router=useRouter()
-  const handleSumit = async (e) => {
+  const [fromData, setFromdata] = useState({ name: "", email: "", password: "", address: "" });
+  const [loading, setLoading] = useState(false); // Track the loading state
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when API call starts
+
     const signupApi = await fetch("/api/unserSingIn", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body:JSON.stringify({
+      body: JSON.stringify({
         name: fromData.name,
         email: fromData.email,
         password: fromData.password,
         address: fromData.address,
-        admin:false
+        admin: false,
       }),
     });
-    const res =await signupApi.json();
-    console.log(res);
-    
+    const res = await signupApi.json();
+    setLoading(false); // Set loading to false after API call is complete
+
     if (res.sucess) {
       localStorage.setItem("token", res.authToken);
       localStorage.setItem("userEmail", fromData.email);
       localStorage.setItem("isAdmin", res.admin);
-      router.push('/')
-
-    }else{
-      alert(res.error)
+      router.push("/");
+    } else {
+      alert(res.error);
     }
+
     setFromdata({ name: "", email: "", password: "", address: "" });
   };
+
   const handleChanges = (e) => {
     setFromdata({ ...fromData, [e.target.name]: e.target.value });
   };
- 
+
   return (
     <div
       className="flex justify-center items-center"
@@ -47,87 +52,93 @@ function Singup() {
       }}
     >
       <div className="container w-full max-w-md bg-black dark:text-gray-100 border-gradinet rounded-lg shadow-2xl  dark:bg-white">
-        <form className="px-8 pt-8 mb-4 pb-3" onSubmit={handleSumit}>
+        <form className="px-8 pt-8 mb-4 pb-3" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               htmlFor="name"
-              className="block text-white dark:text-gray-500  text-sm font-bold mb-2 "
+              className="block text-white dark:text-gray-500 text-sm font-bold mb-2"
             >
               Name
             </label>
             <input
-              type="name"
+              type="text"
               name="name"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white"
+              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white text-gray-700"
               placeholder="Enter your Name"
-              onChange={(e) => handleChanges(e)}
+              onChange={handleChanges}
               value={fromData.name}
+              disabled={loading} // Disable the input when loading
             />
           </div>
 
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-white dark:text-gray-500  text-sm font-bold mb-2 "
+              className="block text-white dark:text-gray-500 text-sm font-bold mb-2"
             >
               Email
             </label>
             <input
               type="email"
               name="email"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white"
-              placeholder="Enter your uaername/email"
-              onChange={(e) => handleChanges(e)}
+              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white text-gray-700"
+              placeholder="Enter your username/email"
+              onChange={handleChanges}
               value={fromData.email}
+              disabled={loading} // Disable the input when loading
             />
           </div>
 
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-white dark:text-gray-500  text-sm font-bold mb-2 "
+              className="block text-white dark:text-gray-500 text-sm font-bold mb-2"
             >
               Password
             </label>
             <input
               type="password"
               name="password"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white"
+              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white text-gray-700"
               placeholder="****************"
-              onChange={(e) => handleChanges(e)}
+              onChange={handleChanges}
               value={fromData.password}
+              disabled={loading} // Disable the input when loading
             />
           </div>
           <div className="mb-4">
             <label
               htmlFor="address"
-              className="block text-white dark:text-gray-500  text-sm font-bold mb-2 "
+              className="block text-white dark:text-gray-500 text-sm font-bold mb-2"
             >
               Address
             </label>
             <input
               type="text"
               name="address"
-              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white"
+              className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 focus:border-indigo-700 bg-white text-gray-700"
               placeholder="Enter your Address"
-              onChange={(e) => handleChanges(e)}
+              onChange={handleChanges}
               value={fromData.address}
+              disabled={loading} // Disable the input when loading
             />
           </div>
           <div className="mb-4 flex gap-6">
             <button
               type="submit"
-              className="border font-bold dark:border-gray-400 border-gray-900 rounded  py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white"
+              className="border font-bold dark:border-gray-400 border-gray-900 rounded py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white"
+              disabled={loading} // Disable the button when loading
             >
-              Signup
+              {loading ? "Signing up..." : "Signup"}
             </button>
 
             <Link href={"/login"} style={{ all: "unset" }}>
               <button
-                type="submit"
-                className="border font-bold dark:border-gray-400 border-gray-900 rounded  py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white"
+                type="button"
+                className="border font-bold dark:border-gray-400 border-gray-900 rounded py-2 px-3 focus:border-indigo-700 text-gray-500 hover:bg-gradient-to-t from-indigo-700 via-violet-700 to-orange-700 hover:text-white bg-white"
+                disabled={loading} // Disable the button when loading
               >
-                Already a user ?
+                Already a user?
               </button>
             </Link>
           </div>
