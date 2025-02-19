@@ -13,8 +13,9 @@ export default function Home({ data }) {
     if (data) {
       setLoading(false);
     }
+    console.log(data,"data");
+
   }, [data]);
-console.log(data,"data");
 
   if (loading) {
     return <div>Loading...</div>;
@@ -106,7 +107,6 @@ export async function getStaticProps() {
     const pizzaData = await fetch(baseUrl + "api/foodData", { method: "GET" })
       .then((response) => response.json())
       .catch((error) => error.message);
-
     data = await JSON.parse(JSON.stringify(pizzaData)); // step required during deployment in staticProps
   } catch (error) {
     console.log(error.message);
@@ -114,7 +114,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      data: data.data || null,
+      data: data?.data || null,
     },
     revalidate: 5,
   };
